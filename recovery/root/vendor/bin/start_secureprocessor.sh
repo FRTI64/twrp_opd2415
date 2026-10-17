@@ -1,7 +1,7 @@
-#!/vendor/bin/sh
+#!/sbin/sh
 # Wait for TWRP to mount the modem partition at /firmware (mounttodecrypt),
 # then bind-mount it at /vendor/firmware_mnt where the secure processor
-# daemon expects the TEE app images, and finally start the daemon.
+# daemon expects the TEE app images.
 i=0
 while [ $i -lt 180 ]; do
     if [ -d /firmware/image ]; then
@@ -13,4 +13,3 @@ while [ $i -lt 180 ]; do
     sleep 1
     i=$((i+1))
 done
-setprop ctl.start vendor.secureprocessor
