@@ -4,13 +4,19 @@
 # the keymaster answers the gatekeeper request with -10020 and the auth token
 # comes back empty, so FBE CE decryption fails even with the right password.
 #
-# The TEE app images (.mbn/.mdt) live in the modem partition, mounted here at
-# /vendor/firmware_mnt (the stock mount point; TWRP additionally mounts the
-# same partition at /firmware for its own use).
+# The TEE app images (.mbn/.mdt) live in the modem partition, which TWRP
+# mounts at /firmware (mounttodecrypt) and the setup script bind-mounts at
+# /vendor/firmware_mnt for the daemon.
 
 on late-init
-    mount vfat /dev/block/bootdevice/by-name/modem /vendor/firmware_mnt ro shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
-    start vendor.secureprocessor
+    start secureprocessor_setup
+
+service secureprocessor_setup /vendor/bin/start_secureprocessor.sh
+    class late_start
+    user root
+    group root
+    oneshot
+    seclabel u:r:recovery:s0
 
 service vendor.secureprocessor /vendor/bin/hw/vendor.qti.hardware.secureprocessor
     class late_start
