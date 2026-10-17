@@ -147,6 +147,9 @@ TW_SUPPORT_INPUT_AIDL_HAPTICS := true
 # Other TWRP Configurations
 TARGET_RECOVERY_QCOM_RTC_FIX            := true
 TW_CUSTOM_CPU_TEMP_PATH                 := "/sys/class/thermal/thermal_zone45/temp"
+# hbtp_vm (OPLUS touch improvement virtual driver) emits a bogus input
+# device; blacklist it like the stock recovery config does.
+TW_INPUT_BLACKLIST                      := "hbtp_vm"
 TW_EXCLUDE_APEX                         := true
 TW_EXCLUDE_DEFAULT_USB_INIT             := true
 TW_EXTRA_LANGUAGES                      := true
