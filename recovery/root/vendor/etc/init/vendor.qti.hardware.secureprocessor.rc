@@ -1,0 +1,20 @@
+# Secure processor (SPU/TEE VM) daemon for TWRP recovery.
+# The TEE keymaster forwards the gatekeeper verify ("ClientVerify") to the
+# secure processor VM; without this daemon the SPU firmware is never loaded,
+# the keymaster answers the gatekeeper request with -10020 and the auth token
+# comes back empty, so FBE CE decryption fails even with the right password.
+#
+# The TEE app images (.mbn/.mdt) live in the modem partition, mounted here at
+# /vendor/firmware_mnt (the stock mount point; TWRP additionally mounts the
+# same partition at /firmware for its own use).
+
+on late-init
+    mkdir /vendor/firmware_mnt 0700 root root
+    mount vfat /dev/block/bootdevice/by-name/modem /vendor/firmware_mnt ro shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
+    start vendor.secureprocessor
+
+service vendor.secureprocessor /vendor/bin/hw/vendor.qti.hardware.secureprocessor
+    class late_start
+    user system
+    group system
+    seclabel u:r:recovery:s0
