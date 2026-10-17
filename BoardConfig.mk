@@ -112,7 +112,9 @@ TW_INCLUDE_RESETPROP          := true
 TW_USE_TOOLBOX                := true
 TW_INCLUDE_ZSTD               := true
 
-# TWRP display (tablet; UI rotated to landscape via libinit)
+# TWRP display (tablet; UI rotated to landscape, matching kmiit's proven
+# Pad 2 Pro setup: portrait_hdpi theme + 270 rotation)
+TW_ROTATION             := 270
 TW_BRIGHTNESS_PATH      := /sys/class/backlight/panel0-backlight/brightness
 TW_DEFAULT_BRIGHTNESS   := 1000
 TW_FRAMERATE            := 120
