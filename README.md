@@ -9,13 +9,16 @@ codenamed **erhai** (Qualcomm SM8750 "sun" platform, Oryon cores).
 - [x] Device tree based on the proven [kmiit sm87xx unified tree](https://github.com/kmiit/twrp_device_oplus_sm87xx)
 - [x] fstab/partition data cross-checked against stock OxygenOS 16 recovery and the LineageOS erhai tree
 - [x] Tablet landscape rotation via libinit (`persist.twrp.rotation=270`)
-- [ ] On-device testing (touch, display orientation, decryption, MTP, OTG)
+- [x] On-device testing (touch, display orientation, MTP, fastbootd)
+- [x] Metadata decryption (wrappedkey_v0) - working
+- [x] keystore2 / keymint / QTI secureprocessor stack brought up in recovery
+- [ ] CE decryption with lock screen PIN - **known limitation**
 
-Works (inherited from the sm87xx baseline, to be re-verified on erhai):
+Works:
 
 - ADB
 - Display (landscape)
-- FBE decryption (wrappedkey_v0 + inlinecrypt)
+- Metadata FBE decryption (wrappedkey_v0 + inlinecrypt)
 - Fastbootd
 - Flashing (all partitions incl. oplus `my_*`)
 - MTP
@@ -23,6 +26,19 @@ Works (inherited from the sm87xx baseline, to be re-verified on erhai):
 - Touch
 - USB OTG
 - Vibrator
+
+Known limitation:
+
+- **CE decryption with a lock screen PIN fails.** The password check itself
+  succeeds (TEE gatekeeper verifies the handle), but the QTI TEE keymaster
+  rejects the gatekeeper's auth-token request with an internal error (-10020),
+  so the token comes back empty and the CE key cannot be unlocked. This is
+  inside QTI's closed TEE stack; everything in the userspace recovery
+  environment (keystore2, keymint, secureprocessor daemon, TEE app mounts,
+  service ordering) has been brought up and verified.
+  **Workaround:** remove the lock screen PIN in OxygenOS before using TWRP;
+  with no credential the CE key degrades to the default password and /data
+  mounts fine (standard practice for modern TWRP devices).
 
 ## How the recovery boots on this device
 
