@@ -38,11 +38,16 @@ struct ModelInfo {
     const char* supportSpr;         // vendor.display.enable_spr
 };
 
+// Both erhai variants (OPD2413 CN and OPD2415 international) share prjname
+// 24926, so the model name is picked by oplus_region: 151 = CN -> Pad 2 Pro,
+// everything else -> Pad 3.
 const std::unordered_map<int, ModelInfo> kModelInfoMap = {
-    // erhai: OnePlus Pad 2 Pro (CN) / OnePlus Pad 3 (IN/EEA/NA/GLO)
-    {24926, {"OnePlus", "OP615EL1", "OnePlus", "OPD2413", "OPD2413", "OnePlus_Pad2Pro", "0"}}, // OPD2413 CN
-    // TODO: add OPD2415 (OP6190L1) prjname once known; falls back to 24926 mapping otherwise
+    {24926, {"OnePlus", "OP615EL1", "OnePlus", "OPD2413", "OPD2413", "OnePlus_Pad2Pro", "0"}}, // erhai CN
     {0,     {"OPLUS",   "SM87XX",   "OPLUS",   "SM87XX",  "SM87XX",  "SM87XX",              "0"}}, // Default
+};
+
+const ModelInfo kErhaiGlobalInfo = {
+    "OnePlus", "OP6190L1", "OnePlus", "OPD2415", "OPD2415", "OnePlus_Pad3", "0",
 };
 
 /*
@@ -98,13 +103,20 @@ void vendor_load_properties() {
     auto model_info = kModelInfoMap.find(prjname);
 
     // Handle unknown device models gracefully (fall back to the erhai entry
-    // so OPD2415 still gets sane properties even if its prjname is unknown)
+    // so both OPD2413/OPD2415 still get sane properties)
     if (model_info == kModelInfoMap.end()) {
         LOG(ERROR) << "Unknown prjname: " << prjname << ", using erhai defaults";
         model_info = kModelInfoMap.find(24926);
     }
 
-    SetupModelProperties(model_info->second, region_suffix_iter->second);
+    const ModelInfo* selected = &model_info->second;
+
+    // erhai is sold as Pad 2 Pro in China (region 151) and Pad 3 elsewhere
+    if (prjname == 24926 && region != 151) {
+        selected = &kErhaiGlobalInfo;
+    }
+
+    SetupModelProperties(*selected, region_suffix_iter->second);
 
     // The erhai panel is natively portrait (2400x3392); rotate the TWRP UI
     // so it appears landscape, matching how the tablet is held/used.
