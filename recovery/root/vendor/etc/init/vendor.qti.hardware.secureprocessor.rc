@@ -9,7 +9,6 @@
 # same partition at /firmware for its own use).
 
 on late-init
-    mkdir /vendor/firmware_mnt 0700 root root
     mount vfat /dev/block/bootdevice/by-name/modem /vendor/firmware_mnt ro shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
     start vendor.secureprocessor
 
