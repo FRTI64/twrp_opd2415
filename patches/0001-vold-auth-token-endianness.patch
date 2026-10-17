@@ -1,0 +1,17 @@
+diff --git a/Decrypt.cpp b/Decrypt.cpp
+index a5a5ab5..aa06663 100755
+--- a/Decrypt.cpp
++++ b/Decrypt.cpp
+@@ -982,9 +982,9 @@ bool Decrypt_User_Synth_Pass(const userid_t user_id, const std::string& Password
+ 						reinterpret_cast<const hw_auth_token_t*>(gkResponse.payload().data());
+ 					HardwareAuthToken authToken;
+ 					authToken.timestamp.milliSeconds = betoh64(hwAuthToken->timestamp);
+-					authToken.challenge = hwAuthToken->challenge;
+-					authToken.userId = hwAuthToken->user_id;
+-					authToken.authenticatorId = hwAuthToken->authenticator_id;
++					authToken.challenge = betoh64(hwAuthToken->challenge);
++					authToken.userId = betoh64(hwAuthToken->user_id);
++					authToken.authenticatorId = betoh64(hwAuthToken->authenticator_id);
+ 					authToken.authenticatorType = static_cast<HardwareAuthenticatorType>(
+ 							betoh32(hwAuthToken->authenticator_type));
+ 					authToken.mac.assign(&hwAuthToken->hmac[0], &hwAuthToken->hmac[32]);

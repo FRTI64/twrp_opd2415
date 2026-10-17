@@ -111,6 +111,15 @@ jobs:
       run: |
         git clone ${{ github.event.inputs.DEVICE_TREE_URL }} -b ${{ github.event.inputs.DEVICE_TREE_BRANCH }} device/${{ github.event.inputs.DEVICE_PATH }}
 
+    - name: Apply device source patches
+      run: |
+        cd system/vold
+        for p in ../../device/${{ github.event.inputs.DEVICE_PATH }}/patches/*.patch; do
+          [ -f "$p" ] || continue
+          echo "Applying $p"
+          git apply "$p"
+        done
+
     - name: Generate build info
       run: |
         echo -e "$BUILD_INFO" >> INFO.txt
