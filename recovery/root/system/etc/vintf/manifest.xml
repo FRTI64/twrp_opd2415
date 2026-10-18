@@ -7,6 +7,15 @@
     cannot connect to KeyMint -> data decryption fails.
 -->
 <manifest version="8.0" type="device" target-level="202404">
+    <hal format="hidl">
+        <name>android.hardware.gatekeeper</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IGatekeeper</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
     <sepolicy>
         <version>202404</version>
     </sepolicy>
