@@ -1,0 +1,14 @@
+diff --git a/Android.bp b/Android.bp
+index 8f4e1f7..bbda233 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -209,9 +209,6 @@ cc_defaults {
+         debuggable: {
+             cflags: ["-DLIBHIDL_TARGET_DEBUGGABLE"],
+         },
+-        enforce_vintf_manifest: {
+-            cflags: ["-DENFORCE_VINTF_MANIFEST"],
+-        },
+     },
+ 
+     sanitize: {

@@ -113,12 +113,9 @@ jobs:
 
     - name: Apply device source patches
       run: |
-        cd system/vold
-        for p in ../../device/${{ github.event.inputs.DEVICE_PATH }}/patches/*.patch; do
-          [ -f "$p" ] || continue
-          echo "Applying $p"
-          git apply "$p"
-        done
+        P=device/${{ github.event.inputs.DEVICE_PATH }}/patches
+        git -C system/vold apply ../../$P/0002-new-data-decryption.patch
+        git -C system/libhidl apply ../../$P/0003-libhidl-disable-vintf-enforcement.patch
 
     - name: Generate build info
       run: |
