@@ -2,7 +2,7 @@
     Input:
         vendor/qcom/proprietary/qcril-nr/qcril_qmi/android.hardware.secure_element.xml
 -->
-<manifest version="8.0" type="device">
+<manifest version="8.0" type="framework">
     <hal format="aidl">
         <name>android.hardware.secure_element</name>
         <fqname>ISecureElement/SIM1</fqname>

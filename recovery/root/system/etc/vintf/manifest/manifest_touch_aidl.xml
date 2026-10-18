@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest version="1.0" type="device">
+<manifest version="1.0" type="framework">
     <hal format="aidl">
         <name>vendor.oplus.hardware.touch</name>
         <version>2</version>

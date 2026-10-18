@@ -5,7 +5,7 @@
     (VintfObjectRecovery). Use fqname-only HIDL declarations (AOSP 16
     rejects manifests declaring both <interface> and <fqname>).
 -->
-<manifest version="8.0" type="device" target-level="202404">
+<manifest version="8.0" type="framework" target-level="202404">
     <hal format="hidl">
         <name>android.hidl.manager</name>
         <transport>hwbinder</transport>
