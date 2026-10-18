@@ -16,4 +16,3 @@ allow recovery legacykeystore_service:service_manager { add find };
 allow recovery keystore_maintenance_service:service_manager { add find };
 allow recovery keystore_metrics_service:service_manager { add find };
 allow recovery keystore_service:service_manager { add find };
-allow recovery service_manager_vndservice:service_manager { add find };
