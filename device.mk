@@ -24,6 +24,11 @@ BOARD_SHIPPING_API_LEVEL    := 35
 PRODUCT_SHIPPING_API_LEVEL  := 35
 PRODUCT_TARGET_VNDK_VERSION := 35
 
+# TWRP recovery has no real hwservicemanager (libhwbinder is a stub), so the
+# strict VINTF manifest enforcement rejects HIDL passthrough service
+# registration/get (e.g. android.hardware.gatekeeper@1.0). Disable it.
+PRODUCT_ENFORCE_VINTF_MANIFEST := false
+
 # Dynamic partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
