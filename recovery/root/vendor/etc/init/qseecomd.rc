@@ -1,9 +1,21 @@
 # Copyright (c) 2019 Qualcomm Technologies, Inc.
 # All Rights Reserved.
 # Confidential and Proprietary - Qualcomm Technologies, Inc.
+#
+# qseecomd is started from a setup script once the block device nodes
+# (in particular /dev/block/by-name/ssd, used by the SSD storage listener
+# for the TEE apps) exist. Starting it on init races ueventd and leaves the
+# TEE gatekeeper/keymaster without their secure storage.
 
-on init
-    start vendor.qseecomd
+on late-init
+    start qseecomd_setup
+
+service qseecomd_setup /vendor/bin/start_qseecomd.sh
+    class late_start
+    user root
+    group root
+    oneshot
+    seclabel u:r:recovery:s0
 
 service vendor.qseecomd /vendor/bin/qseecomd
     socket notify-topology stream 660 system drmrpc
