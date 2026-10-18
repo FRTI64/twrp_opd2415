@@ -1,0 +1,17 @@
+# HIDL gatekeeper @1.0 for TWRP recovery.
+# The AIDL gatekeeper service on erhai routes verification through the TEE
+# keymaster proxy, which rejects the auth-token request (-10020) and returns
+# an empty token. The legacy HIDL gatekeeper@1.0 talks the old TEE gatekeeper
+# protocol directly and returns a properly signed auth token, so TWRP can
+# decrypt FBE CE with the lock screen credential.
+#
+# Started once qseecomd has registered its TEE listeners.
+
+on property:vendor.sys.listeners.registered=true
+    start gatekeeper-1-0-qti
+
+service gatekeeper-1-0-qti /system/bin/android.hardware.gatekeeper@1.0-service-qti
+    user root
+    group root
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
+    seclabel u:r:recovery:s0
