@@ -10,7 +10,6 @@ allow recovery hal_keymint_service:service_manager { add find };
 allow recovery hal_remotelyprovisionedcomponent_service:service_manager { add find };
 allow recovery hal_secureclock_service:service_manager { add find };
 allow recovery hal_sharedsecret_service:service_manager { add find };
-allow recovery default_android_service:service_manager { add find };
 allow recovery apc_service:service_manager { add find };
 allow recovery authorization_service:service_manager { add find };
 allow recovery legacykeystore_service:service_manager { add find };
