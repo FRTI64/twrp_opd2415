@@ -11,10 +11,4 @@
         <version>1.0</version>
         <fqname>@1.0::ITokenManager/default</fqname>
     </hal>
-    <hal format="hidl">
-        <name>android.hardware.gatekeeper</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <fqname>@1.0::IGatekeeper/default</fqname>
-    </hal>
 </manifest>
