@@ -1,5 +1,5 @@
-<manifest version="1.0" type="framework">
-    <hal>
+<manifest version="8.0" type="framework">
+    <hal format="hidl">
         <name>android.hidl.manager</name>
         <transport>hwbinder</transport>
         <version>1.2</version>
@@ -7,8 +7,9 @@
             <name>IServiceManager</name>
             <instance>default</instance>
         </interface>
+        <fqname>@1.2::IServiceManager/default</fqname>
     </hal>
-    <hal>
+    <hal format="hidl">
         <name>android.hidl.token</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -16,5 +17,16 @@
             <name>ITokenManager</name>
             <instance>default</instance>
         </interface>
+        <fqname>@1.0::ITokenManager/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.gatekeeper</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IGatekeeper</name>
+            <instance>default</instance>
+        </interface>
+        <fqname>@1.0::IGatekeeper/default</fqname>
     </hal>
 </manifest>
