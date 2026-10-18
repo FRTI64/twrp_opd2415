@@ -13,6 +13,8 @@
             <name>IServiceManager</name>
             <instance>default</instance>
         </interface>
+        <fqname>@1.0::IServiceManager/default</fqname>
+        <fqname>@1.1::IServiceManager/default</fqname>
         <fqname>@1.2::IServiceManager/default</fqname>
     </hal>
     <hal format="hidl">
