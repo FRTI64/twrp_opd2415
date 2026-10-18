@@ -1,0 +1,20 @@
+# Allow the TWRP recovery domain to register/find the TEE service-manager
+# entries. hwservicemanager checks these permissions in userspace
+# (selinux_check_access) even when the kernel runs permissive, so the
+# registration fails without explicit allows.
+allow recovery hal_bootctl_service:service_manager { add find };
+allow recovery hal_gatekeeper_service:service_manager { add find };
+allow recovery hal_health_service:service_manager { add find };
+allow recovery hal_secure_element_service:service_manager { add find };
+allow recovery hal_keymint_service:service_manager { add find };
+allow recovery hal_remotelyprovisionedcomponent_service:service_manager { add find };
+allow recovery hal_secureclock_service:service_manager { add find };
+allow recovery hal_sharedsecret_service:service_manager { add find };
+allow recovery default_android_service:service_manager { add find };
+allow recovery apc_service:service_manager { add find };
+allow recovery authorization_service:service_manager { add find };
+allow recovery legacykeystore_service:service_manager { add find };
+allow recovery keystore_maintenance_service:service_manager { add find };
+allow recovery keystore_metrics_service:service_manager { add find };
+allow recovery keystore_service:service_manager { add find };
+allow recovery service_manager_vndservice:service_manager { add find };

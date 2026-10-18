@@ -52,6 +52,9 @@ AB_OTA_PARTITIONS += \
 PRODUCT_PLATFORM                := sun
 TARGET_BOOTLOADER_BOARD_NAME    := sun
 
+# Sepolicy (allow recovery to register/find TEE services in userspace checks)
+BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
+
 # Crypto
 BOARD_USES_METADATA_PARTITION   := true
 TW_INCLUDE_CRYPTO               := true
