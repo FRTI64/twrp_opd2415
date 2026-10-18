@@ -1,8 +1,10 @@
 <!--
     Recovery VINTF manifest for OPD2415/OPD2413 (erhai).
-    In recovery, servicemanager/hwservicemanager only read
-    /system/etc/vintf/manifest.xml and /system/etc/vintf/manifest/
-    (VintfObjectRecovery).
+    In recovery, servicemanager only reads /system/etc/vintf/manifest.xml
+    and /system/etc/vintf/manifest/ (VintfObjectRecovery). Without the
+    AIDL HAL declarations here, every AIDL service registration
+    (keymint, gatekeeper, health, boot, ...) is rejected and keystore2
+    cannot connect to KeyMint -> data decryption fails.
 -->
 <manifest version="8.0" type="device" target-level="202404">
     <hal format="hidl">
@@ -25,7 +27,6 @@
             <name>IGatekeeper</name>
             <instance>default</instance>
         </interface>
-        <fqname>@1.0::IGatekeeper/default</fqname>
     </hal>
     <sepolicy>
         <version>202404</version>
