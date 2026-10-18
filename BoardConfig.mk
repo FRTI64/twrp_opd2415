@@ -53,6 +53,7 @@ PRODUCT_PLATFORM                := sun
 TARGET_BOOTLOADER_BOARD_NAME    := sun
 
 # Sepolicy (allow recovery to register/find TEE services in userspace checks)
+SELINUX_IGNORE_NEVERALLOWS := true
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
 # Crypto
