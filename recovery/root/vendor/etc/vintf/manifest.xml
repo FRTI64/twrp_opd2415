@@ -1,11 +1,20 @@
 <!--
-    Input:
-        device/qcom/sun/manifest_sun.xml
+    Recovery vendor VINTF manifest for OPD2415/OPD2413 (erhai).
+    The HIDL gatekeeper@1.0 service requires a VINTF declaration to
+    register (LegacySupport checks the device manifest). The AIDL
+    gatekeeper is intentionally NOT declared/started so TWRP uses the
+    legacy HIDL path, which returns a properly signed auth token.
 -->
 <manifest version="8.0" type="device" target-level="202404">
-    <hal format="aidl">
+    <hal format="hidl">
         <name>android.hardware.gatekeeper</name>
-        <fqname>IGatekeeper/default</fqname>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IGatekeeper</name>
+            <instance>default</instance>
+        </interface>
+        <fqname>@1.0::IGatekeeper/default</fqname>
     </hal>
     <sepolicy>
         <version>202404</version>
